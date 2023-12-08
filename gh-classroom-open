@@ -1,35 +1,67 @@
 #!/usr/bin/env bash
 set -e
+# write function to process arguments. Options:
+# -r or --regexp <regexp> to filter github classrooms by regexp
+# -h --help to print help
+# -v --version to print version
 
-echo "Hello gh-classroom-open!"
+VERSION="0.0.1"
+REGEXP="2324$"
 
-# Snippets to help get started:
+function usage() {
+  echo "Opens all the github classrooms matching <regexp> in the browser"
+  echo "Usage: gh-classroom-open [-r|--regexp <regexp>]"
+  echo "       gh-classroom-open [-h|--help]"
+  echo "       gh-classroom-open [-v|--version]"
+  exit 0
+}
 
-# Determine if an executable is in the PATH
-# if ! type -p ruby >/dev/null; then
-#   echo "Ruby not found on the system" >&2
-#   exit 1
-# fi
+function version() {
+  echo "$VERSION"
+}
 
-# Pass arguments through to another command
-# gh issue list "$@" -R cli/cli
+function gh-classroom-open() {
+    local CLASSROOMS=$(gh classroom list --per-page 200 | grep '2324$' | grep "$REGEXP")
+    # It outputs something like this:
+    # 185636  ULL-ESIT-DMSI-2324  https://classroom.github.com/classrooms/143794118-ull-esit-dmsi-2324
+    # 185748  ULL-MII-SYTWS-2324  https://classroom.github.com/classrooms/144119227-ull-mii-sytws-2324
+    # 188886  ULL-MFP-AET-2324    https://classroom.github.com/classrooms/145562104-ull-mfp-aet-2324
+   
+    local LIST=$(echo "$CLASSROOMS" | awk '{print $3}')
+  
+    for item in "${LIST[@]}"; do
+        echo "$item" | xargs -n 1 open
+    done
+}
 
-# Using the gh api command to retrieve and format information
-# QUERY='
-#   query($endCursor: String) {
-#     viewer {
-#       repositories(first: 100, after: $endCursor) {
-#         nodes {
-#           nameWithOwner
-#           stargazerCount
-#         }
-#       }
-#     }
-#   }
-# '
-# TEMPLATE='
-#   {{- range $repo := .data.viewer.repositories.nodes -}}
-#     {{- printf "name: %s - stargazers: %v\n" $repo.nameWithOwner $repo.stargazerCount -}}
-#   {{- end -}}
-# '
-# exec gh api graphql -f query="${QUERY}" --paginate --template="${TEMPLATE}"
+function process_arguments() {
+  REGEXP=$(gh pwd)
+  if [ $? -ne 0 ]; then
+    usage
+  fi
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -r|--regexp)
+        REGEXP="$2"
+        shift
+        shift
+        ;;
+      -h|--help)
+        usage
+        exit 0
+        ;;
+      -v|--version)
+        version
+        exit 0
+        ;;
+      *)
+        echo "Unknown argument: $1"
+        usage
+        exit 1
+        ;;
+    esac
+  done
+}
+
+process_arguments "$@"
+gh-classroom-open
