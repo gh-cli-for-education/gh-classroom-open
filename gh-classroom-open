@@ -13,7 +13,7 @@ function usage() {
   echo "Opens all the github classrooms matching <regexp> in the browser"
   echo "If option -l is used only shows the urls"
   echo "Usage: gh-classroom-open [-r|--regexp <regexp>]"
-  echo "Usage: gh-classroom-open [-r|--regexp <regexp> -l|--list]"
+  echo "       gh-classroom-open [-r|--regexp <regexp> -l|--list]"
   echo "       gh-classroom-open [-h|--help]"
   echo "       gh-classroom-open [-v|--version]"
   exit 0

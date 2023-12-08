@@ -13,7 +13,9 @@ gh extension install gh-cli-for-education/gh-classroom-open
 ```
 ✗ ./gh-classroom-open -h 
 Opens all the github classrooms matching <regexp> in the browser
+If option -l is used only shows the urls
 Usage: gh-classroom-open [-r|--regexp <regexp>]
+       gh-classroom-open [-r|--regexp <regexp> -l|--list]
        gh-classroom-open [-h|--help]
        gh-classroom-open [-v|--version]
 ```
