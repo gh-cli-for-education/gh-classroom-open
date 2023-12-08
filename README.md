@@ -20,6 +20,15 @@ Usage: gh-classroom-open [-r|--regexp <regexp>]
        gh-classroom-open [-v|--version]
 ```
 
+## Examples
+
+```
+✗ ./gh-classroom-open -l -r '2223$'
+131148 ULL-ESIT-PL-2223 https://classroom.github.com/classrooms/108465133-ull-esit-pl-2223
+131345 ULL-MII-SYTWS-2223 https://classroom.github.com/classrooms/108465218-ull-mii-sytws-2223
+131351 ULL-MFP-AET-2223 https://classroom.github.com/classrooms/108617085-ull-mfp-aet-2223
+140381 ULL-ESIT-DMSI-2223 https://classroom.github.com/classrooms/108465062-ull-esit-dmsi-2223
+```
 
 ## Aliases `gh cd` and `gh pwd`
 

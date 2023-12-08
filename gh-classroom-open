@@ -24,19 +24,19 @@ function version() {
 }
 
 function gh-classroom-open() {
-    local CLASSROOMS=$(gh classroom list --per-page 200 | grep '2324$' | grep "$REGEXP")
+    local CLASSROOMS=$(gh classroom list --per-page 200 | grep "$REGEXP")
     # It outputs something like this:
     # 185636  ULL-ESIT-DMSI-2324  https://classroom.github.com/classrooms/143794118-ull-esit-dmsi-2324
     # 185748  ULL-MII-SYTWS-2324  https://classroom.github.com/classrooms/144119227-ull-mii-sytws-2324
     # 188886  ULL-MFP-AET-2324    https://classroom.github.com/classrooms/145562104-ull-mfp-aet-2324
-   
+
+    if [ "$SHOW" = true ]; then
+        echo "$CLASSROOMS" | awk '{print $1, $2, $3}'
+        exit 0
+    fi
     local LIST=$(echo "$CLASSROOMS" | awk '{print $3}')
   
     for item in "${LIST[@]}"; do
-        if [ "$SHOW" = true ]; then
-            echo "$item"
-            continue
-        fi
         echo "$item" | xargs -n 1 open
     done
 }
