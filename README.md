@@ -1,3 +1,13 @@
+## Description
+
+Open in the browser the GitHub classrooms whose name matches the specified regexp
+
+## Installation
+
+```
+gh extension install gh-cli-for-education/gh-classroom-open
+```
+
 ## Usage
 
 ```
