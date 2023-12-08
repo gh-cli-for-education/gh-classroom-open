@@ -5,7 +5,7 @@ set -e
 # -h --help to print help
 # -v --version to print version
 
-VERSION="0.0.1"
+VERSION="0.1.1"
 REGEXP="2324$"
 SHOW=false
 
